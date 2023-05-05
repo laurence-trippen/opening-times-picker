@@ -1,0 +1,36 @@
+{
+  "name": "@smartelephantapps/opening-times-picker",
+  "version": "1.0.0",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/opening-times-picker.umd.cjs",
+  "module": "./dist/opening-times-picker.js",
+  "exports": {
+    ".": {
+      "import": "./dist/opening-times-picker.js",
+      "require": "./dist/opening-times-picker.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
+}
