@@ -1,11 +1,10 @@
 // Packages
 import { IconButton, Stack, TextField } from '@mui/material';
-import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
+import { TimePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState, KeyboardEvent } from 'react';
 import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 // Modules
 import { WithStringId } from './types/WithStringId.type';
@@ -92,29 +91,27 @@ function TimeRangePicker(props: TimeRangePickerProps) {
 
   return (
     <>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Stack direction="row" spacing={1}>
-            <TimePicker
-              label="Start Zeit"
-              value={startDate}
-              onChange={handleStartDateChanged}
-              renderInput={(params) => <TextField {...params} size="small" onKeyDown={preventKeyDownInput} />}
-            />
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" spacing={1}>
+          <TimePicker
+            label="Start Zeit"
+            value={startDate}
+            onChange={handleStartDateChanged}
+            renderInput={(params) => <TextField {...params} size="small" onKeyDown={preventKeyDownInput} />}
+          />
 
-            <TimePicker
-              label="End Zeit"
-              value={endDate}
-              onChange={handleEndDateChanged}
-              renderInput={(params) => <TextField {...params} size="small" onKeyDown={preventKeyDownInput} />}
-            />
-          </Stack>
-
-          <IconButton color="error" onClick={() => onDelete(timeRange._id)}>
-            <DeleteIcon />
-          </IconButton>
+          <TimePicker
+            label="End Zeit"
+            value={endDate}
+            onChange={handleEndDateChanged}
+            renderInput={(params) => <TextField {...params} size="small" onKeyDown={preventKeyDownInput} />}
+          />
         </Stack>
-      </LocalizationProvider>
+
+        <IconButton color="error" onClick={() => onDelete(timeRange._id)}>
+          <DeleteIcon />
+        </IconButton>
+      </Stack>
     </>
   );
 }

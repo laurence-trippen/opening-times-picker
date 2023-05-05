@@ -1,5 +1,5 @@
 // Packages
-import { Button, Stack } from '@mui/material';
+import { Button, CssBaseline, Stack } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,6 +10,8 @@ import { WithStringId } from './types/WithStringId.type';
 import { Day } from './types/Day.type';
 import OpeningTimesDialog from './OpeningTimesDialog';
 import OpeningTimesPickerSpan from './OpeningTimesPickerSpan';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 type OpeningTimesPickerProps = {
   onBusinessDaysChanged: (businessDays: BusinessDay[]) => void;
@@ -148,37 +150,40 @@ function OpeningTimesPicker(props: OpeningTimesPickerProps) {
 
   return (
     <>
-      <Stack spacing={1} alignItems="start">
-        <Button variant="outlined" size="small" startIcon={<AddCircleOutlineIcon />} onClick={handleAddTimeSpanClick}>
-          Zeitspanne hinzufügen
-        </Button>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+        <CssBaseline />
+        <Stack spacing={1} alignItems="start">
+          <Button variant="outlined" size="small" startIcon={<AddCircleOutlineIcon />} onClick={handleAddTimeSpanClick}>
+            Zeitspanne hinzufügen
+          </Button>
 
-        <div className="bb-ot-picker" style={style}>
-          <div className="bb-ot-picker__display">
-            <div className="bb-ot-picker__display__item">Mo</div>
-            <div className="bb-ot-picker__display__item">Di</div>
-            <div className="bb-ot-picker__display__item">Mi</div>
-            <div className="bb-ot-picker__display__item">Do</div>
-            <div className="bb-ot-picker__display__item">Fr</div>
-            <div className="bb-ot-picker__display__item">Sa</div>
-            <div className="bb-ot-picker__display__item">So</div>
+          <div className="bb-ot-picker" style={style}>
+            <div className="bb-ot-picker__display">
+              <div className="bb-ot-picker__display__item">Mo</div>
+              <div className="bb-ot-picker__display__item">Di</div>
+              <div className="bb-ot-picker__display__item">Mi</div>
+              <div className="bb-ot-picker__display__item">Do</div>
+              <div className="bb-ot-picker__display__item">Fr</div>
+              <div className="bb-ot-picker__display__item">Sa</div>
+              <div className="bb-ot-picker__display__item">So</div>
+            </div>
+
+            <div className="bb-ot-picker__interaction">
+              {openingTimes.map((openingTime) => computeSpans(openingTime))}
+            </div>
           </div>
+        </Stack>
 
-          <div className="bb-ot-picker__interaction">
-            {openingTimes.map((openingTime) => computeSpans(openingTime))}
-          </div>
-        </div>
-      </Stack>
-
-      <OpeningTimesDialog
-        open={dialogOpen}
-        editMode={inEditModeRef.current}
-        editModePayload={selectedBusinessDay.current}
-        onClose={handleDialogClosed}
-        onSave={handleDialogSaved}
-        onDelete={handleDialogDeleted}
-        disabledDays={getDaysFromOpeningTimes()}
-      />
+        <OpeningTimesDialog
+          open={dialogOpen}
+          editMode={inEditModeRef.current}
+          editModePayload={selectedBusinessDay.current}
+          onClose={handleDialogClosed}
+          onSave={handleDialogSaved}
+          onDelete={handleDialogDeleted}
+          disabledDays={getDaysFromOpeningTimes()}
+        />
+      </LocalizationProvider>
     </>
   );
 }
